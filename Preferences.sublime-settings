@@ -1,0 +1,23 @@
+{
+	"bold_folder_labels": true,
+	"color_scheme": "Packages/Color Scheme - Default/Blackboard.tmTheme",
+	"font_face": "Inconsolata",
+	"font_options": "subpixel_antialias",
+	"font_size": 14,
+	"highlight_line": true,
+	"highlight_modified_tabs": true,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"line_padding_bottom": 1,
+	"line_padding_top": 1,
+	"rulers":
+	[
+		80
+	],
+	"scroll_past_end": true,
+	"trim_trailing_whitespace": true,
+	"save_on_focus_lost": true,
+	"find_selected_text": true
+}
