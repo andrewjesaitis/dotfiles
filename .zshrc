@@ -20,22 +20,16 @@ plugins=(brew colored-man mercurial git python)
 
 # Oh my zsh setup magic
 source $ZSH/oh-my-zsh.sh
+export QTDIR=/Users/andrewjesaitis/Qt5.4.1/5.4/clang_64
 
-# My Path throught the technological woods
-export PATH=/Users/andrewjesaitis/.rbenv/shims:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/sbin:~/Dropbox/todo:$PATH
-
-# Todo.txt stuff
-export TODOTXT_DEFAULT_ACTION=ls
-alias t='todo.sh -d ~/Dropbox/todo/todo.cfg'
+# My Path through the technological woods
+export PATH=$QTDIR/bin:/Users/andrewjesaitis/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/sbin:~/Dropbox/todo:$PATH
 
 #Virtualenv and python stuff
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
 source /usr/local/bin/virtualenvwrapper.sh
-
-#need to explicitly let pyside know where Qt's libs are
-#export DYLD_FRAMEWORK_PATH=/usr/local/lib:$DYLD_FRAMEWORK_PATH
 
 #Sane db aliases
 alias rs='python manage.py runserver'
@@ -68,8 +62,5 @@ alias get='git '
 #Perhaps you should include this apple, hmmmm....
 alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
-
-#export JAVA_HOME=$(/usr/libexec/java_home)
-#export PATH=/Developer/apache-maven-3.2.1/bin:$PATH
 
 source ~/Dropbox/secrets
