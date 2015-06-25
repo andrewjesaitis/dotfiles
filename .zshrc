@@ -2,6 +2,7 @@
 ZSH=$HOME/.oh-my-zsh
 
 # Theme
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 ZSH_THEME="andrewjesaitis"
 
 setopt list_ambiguous
@@ -36,7 +37,7 @@ alias rs='python manage.py runserver'
 alias start_mysql='mysql.server start'
 alias stop_mysql='mysql.server stop'
 
-alias start_mongo="mongod"
+alias start_mongo="mongod --dbpath ~/Projects/mongodatabases"
 alias stop_mongo="mongo --eval \"db.getSiblingDB('admin').shutdownServer()\""
 
 alias start_postgres='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
