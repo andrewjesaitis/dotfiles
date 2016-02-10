@@ -17,19 +17,18 @@ setopt list_ambiguous
 # export UPDATE_ZSH_DAYS=30
 
 # Oh my zsh plugins
-plugins=(brew colored-man mercurial git python)
+plugins=(colored-man git python)
 
 # Oh my zsh setup magic
 source $ZSH/oh-my-zsh.sh
-export QTDIR=/Users/andrewjesaitis/Qt5.4.1/5.4/clang_64
 
 # My Path through the technological woods
-export PATH=$QTDIR/bin:/Users/andrewjesaitis/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/sbin:~/Dropbox/todo:$PATH
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/sbino:$PATH
 
 #Virtualenv and python stuff
 export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Devel
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+export PROJECT_HOME=$HOME/Projects
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
 source /usr/local/bin/virtualenvwrapper.sh
 
 #Sane db aliases
@@ -47,16 +46,7 @@ alias restart_couch='/usr/bin/sudo launchctl stop org.apache.couchdb'
 alias start_couch='/usr/bin/sudo launchctl load -w /Library/LaunchDaemons/org.apache.couchdb.plist'
 alias stop_couch='/usr/bin/sudo launchctl unload /Library/LaunchDaemons/org.apache.couchdb.plist'
 
-#Git Aliases
-alias gs='git status '
-alias ga='git add '
-alias gb='git branch '
-alias gc='git commit'
-alias gd='git diff'
-alias go='git checkout '
-alias gk='gitk --all&'
-alias gx='gitx --all'
-
+#Git aliases
 alias got='git '
 alias get='git '
 
