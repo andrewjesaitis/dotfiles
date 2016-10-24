@@ -17,7 +17,7 @@ setopt list_ambiguous
 # export UPDATE_ZSH_DAYS=30
 
 # Oh my zsh plugins
-plugins=(colored-man git python)
+plugins=(colored-man brew git python)
 
 # Oh my zsh setup magic
 source $ZSH/oh-my-zsh.sh
@@ -28,7 +28,7 @@ export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local
 #Virtualenv and python stuff
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Projects
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+export VIRTUALENVWRAPPER_PYTHON=python
 source /usr/local/bin/virtualenvwrapper.sh
 
 #Sane db aliases
