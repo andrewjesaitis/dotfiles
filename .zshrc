@@ -55,3 +55,6 @@ alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall 
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 
 source ~/Dropbox/secrets
+export PATH="/home/andrewjesaitis/.linuxbrew/bin:$PATH"
+export MANPATH="/home/andrewjesaitis/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="/home/andrewjesaitis/.linuxbrew/share/info:$INFOPATH"
