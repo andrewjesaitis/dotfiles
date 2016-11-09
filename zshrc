@@ -6,6 +6,7 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 ZSH_THEME="andrewjesaitis"
 
 setopt list_ambiguous
+autoload -Uz compinit && compinit -i
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -24,6 +25,8 @@ source $ZSH/oh-my-zsh.sh
 
 # My Path through the technological woods
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/sbino:$PATH
+fpath=(~/.zsh/completion $fpath)
+
 
 #Virtualenv and python stuff
 export WORKON_HOME=$HOME/.virtualenvs
