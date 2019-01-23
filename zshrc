@@ -18,7 +18,7 @@ autoload -Uz compinit && compinit -i
 # export UPDATE_ZSH_DAYS=30
 
 # Oh my zsh plugins
-plugins=(colored-man brew git python)
+plugins=(colored-mangit python)
 
 # Oh my zsh setup magic
 source $ZSH/oh-my-zsh.sh
