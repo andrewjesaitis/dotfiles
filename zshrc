@@ -27,6 +27,9 @@ source $ZSH/oh-my-zsh.sh
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/sbino:$PATH
 fpath=(~/.zsh/completion $fpath)
 
+#Use emacs as defualt editor
+export EDITOR='emacs'
+export VISUAL='emacs'
 
 #Virtualenv and python stuff
 export WORKON_HOME=$HOME/.virtualenvs
@@ -62,3 +65,10 @@ export PATH="/home/andrewjesaitis/.linuxbrew/bin:$PATH"
 export MANPATH="/home/andrewjesaitis/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="/home/andrewjesaitis/.linuxbrew/share/info:$INFOPATH"
 export PATH="/usr/local/sbin:$PATH"
+
+#nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+source ~/Projects/zymergenrc
