@@ -60,7 +60,7 @@ alias get='git '
 alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 
-#source ~/Dropbox/Secrets/secrets
+
 export PATH="/home/andrewjesaitis/.linuxbrew/bin:$PATH"
 export MANPATH="/home/andrewjesaitis/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="/home/andrewjesaitis/.linuxbrew/share/info:$INFOPATH"
@@ -71,4 +71,14 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-source ~/Projects/zymergenrc
+# Additional configs
+WORKRC=~/Projects/zymergenrc
+SECRETSRC=~/Dropbox/Secrets/secrets
+
+if [ -f $WORKRC ]; then
+   source $WORKRC
+fi
+
+if [ -f $SECRETSRC ]; then
+   source $SECRETSRC
+fi
