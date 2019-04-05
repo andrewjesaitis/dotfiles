@@ -18,7 +18,7 @@ autoload -Uz compinit && compinit -i
 # export UPDATE_ZSH_DAYS=30
 
 # Oh my zsh plugins
-plugins=(colored-mangit python)
+plugins=(colored-man-pages sudo colorize history emacs python)
 
 # Oh my zsh setup magic
 source $ZSH/oh-my-zsh.sh
@@ -28,8 +28,9 @@ export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local
 fpath=(~/.zsh/completion $fpath)
 
 #Use emacs as defualt editor
-export EDITOR='emacs'
-export VISUAL='emacs'
+export ALTERNATE_EDITOR=""
+export EDITOR="emacsclient -t"                  # $EDITOR opens in terminal
+export VISUAL="emacsclient -c -a emacs"         # $VISUAL opens in GUI mode
 
 #Virtualenv and python stuff
 export WORKON_HOME=$HOME/.virtualenvs
