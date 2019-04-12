@@ -29,3 +29,6 @@ for file in $files; do
     echo "Creating symlink to $file in home directory."
     ln -s $dir/$file ~/.$file
 done
+
+mkdir -p ~/.local/share/applications
+ln -s $dir/emacsclient.desktop ~/.local/share/applications
