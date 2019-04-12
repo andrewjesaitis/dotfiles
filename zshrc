@@ -12,10 +12,10 @@ autoload -Uz compinit && compinit -i
 # CASE_SENSITIVE="true"
 
 # Comment this out to disable bi-weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Update Oh my zsh every month
-# export UPDATE_ZSH_DAYS=30
+export UPDATE_ZSH_DAYS=30
 
 # Oh my zsh plugins
 plugins=(colored-man-pages sudo colorize history emacs python)
