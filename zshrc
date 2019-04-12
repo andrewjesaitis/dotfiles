@@ -23,8 +23,15 @@ plugins=(colored-man-pages sudo colorize history emacs python)
 # Oh my zsh setup magic
 source $ZSH/oh-my-zsh.sh
 
+# Disable the bell
+if [[ $iatest > 0 ]]; then bind "set bell-style visible"; fi
+
+# Expand the history size
+export HISTFILESIZE=10000
+export HISTSIZE=500
+
 # My Path through the technological woods
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/sbino:$PATH
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/X11/bin:$PATH
 fpath=(~/.zsh/completion $fpath)
 
 #Use emacs as defualt editor
@@ -57,15 +64,89 @@ alias stop_couch='/usr/bin/sudo launchctl unload /Library/LaunchDaemons/org.apac
 alias got='git '
 alias get='git '
 
+#Docker aliases
+alias docker_kill_all='docker kill $(docker ps -q)'
+alias docker_rm_all='docker rm $(docker ps -a -q)'
+alias docker_rmi_all='docker rmi $(docker images -q)'
+
+
+# Show current network connections to the server
+alias ipview="netstat -anpl | grep :80 | awk {'print \$5'} | cut -d\":\" -f1 | sort | uniq -c | sort -n | sed -e 's/^ *//' -e 's/ *\$//'"
+
+# Show open ports
+alias openports='netstat -nape --inet'
+
+# Alias's for safe and forced reboots
+alias rebootsafe='sudo shutdown -r now'
+alias rebootforce='sudo shutdown -r -n now'
+
+# Alias's to show disk space and space used in a folder
+alias diskspace="du -S | sort -n -r |more"
+alias folders='du -h --max-depth=1'
+alias folderssort='find . -maxdepth 1 -type d -print0 | xargs -0 du -sk | sort -rn'
+alias tree='tree -CAhF --dirsfirst'
+alias treed='tree -CAFd'
+alias mountedinfo='df -hT'
+
+# Alias's for archives
+alias mktar='tar -cvf'
+alias mkbz2='tar -cvjf'
+alias mkgz='tar -cvzf'
+alias untar='tar -xvf'
+alias unbz2='tar -xvjf'
+alias ungz='tar -xvzf'
+
+# System aliases
+alias pstree='ps axuf'
+alias ping='ping -c 10'
+alias cls='clear'
+
+#######################################################
+# GENERAL ALIAS'S
+#######################################################
+# To temporarily bypass an alias, we preceed the command with a \
+# EG: the ls command is aliased, but to use the normal ls command you would type \ls
+
+# Alias's for multiple directory listing commands
+alias la='ls -Alh' # show hidden files
+alias ls='ls -aFh --color=always' # add colors and file type extensions
+alias lx='ls -lXBh' # sort by extension
+alias lk='ls -lSrh' # sort by size
+alias lc='ls -lcrh' # sort by change time
+alias lu='ls -lurh' # sort by access time
+alias lr='ls -lRh' # recursive ls
+alias lt='ls -ltrh' # sort by date
+alias lm='ls -alh |more' # pipe through 'more'
+alias lw='ls -xAh' # wide listing format
+alias ll='ls -Fls' # long listing format
+alias labc='ls -lap' #alphabetical sort
+alias lf="ls -l | egrep -v '^d'" # files only
+alias ldir="ls -l | egrep '^d'" # directories only
+
+# Change directory aliases
+alias home='cd ~'
+alias cd..='cd ..'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+
+# Alias's to modified commands
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -iv'
+alias mkdir='mkdir -p'
+alias less='less -R'
+alias apt-get='sudo apt-get'
+
 #Perhaps you should include this apple, hmmmm....
 alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 
-
+#LinuxBrew
 export PATH="/home/andrewjesaitis/.linuxbrew/bin:$PATH"
 export MANPATH="/home/andrewjesaitis/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="/home/andrewjesaitis/.linuxbrew/share/info:$INFOPATH"
-export PATH="/usr/local/sbin:$PATH"
 
 #nvm
 export NVM_DIR="$HOME/.nvm"
