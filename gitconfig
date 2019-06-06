@@ -18,3 +18,5 @@
   wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
   bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
   pushb = "!git push --set-upstream origin \"$(git rev-parse --abbrev-ref HEAD)\""
+[core]
+	excludesfile = /home/andrew/.gitignore_global

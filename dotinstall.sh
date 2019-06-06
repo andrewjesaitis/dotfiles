@@ -33,3 +33,6 @@ done
 mkdir -p ~/.local/share/applications
 ln -s $dir/emacsclient.desktop ~/.local/share/applications
 ln -s $dir/st.desktop ~/.local/share/applications
+
+
+git config --global core.excludesfile ~/.gitignore_global
