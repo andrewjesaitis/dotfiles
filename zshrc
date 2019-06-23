@@ -13,7 +13,6 @@ then
   PS1='$ '
 fi
 
-
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
@@ -46,8 +45,6 @@ if [[ $iatest > 0 ]]; then bind "set bell-style visible"; fi
 export HISTFILESIZE=10000
 export HISTSIZE=500
 
-# My Path through the technological woods
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/X11/bin:$PATH
 fpath=(~/.zsh/completion $fpath)
 
 #Use emacs as defualt editor
@@ -159,11 +156,6 @@ alias apt-get='sudo apt-get'
 #Perhaps you should include this apple, hmmmm....
 alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
-
-#LinuxBrew
-export PATH="/home/andrewjesaitis/.linuxbrew/bin:$PATH"
-export MANPATH="/home/andrewjesaitis/.linuxbrew/share/man:$MANPATH"
-export INFOPATH="/home/andrewjesaitis/.linuxbrew/share/info:$INFOPATH"
 
 #nvm
 export NVM_DIR="$HOME/.nvm"
