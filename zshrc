@@ -82,6 +82,10 @@ alias get='git '
 alias docker_kill_all='docker kill $(docker ps -q)'
 alias docker_rm_all='docker rm $(docker ps -a -q)'
 alias docker_rmi_all='docker rmi $(docker images -q)'
+alias dcd='docker-compose down'
+alias dcu='docker-compose up'
+alias dcp='docker-compose pull'
+alias dcb='docker-compose build'
 
 
 # Show current network connections to the server
