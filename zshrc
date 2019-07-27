@@ -177,3 +177,8 @@ fi
 if [ -f $SECRETSRC ]; then
    source $SECRETSRC
 fi
+
+# Custom functions
+pyclean () {
+    find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
+}
