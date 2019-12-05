@@ -27,7 +27,7 @@ autoload -Uz compinit && compinit -i
 # CASE_SENSITIVE="true"
 
 # Comment this out to disable bi-weekly auto-update checks
-DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE= "false"
 
 # Update Oh my zsh every month
 export UPDATE_ZSH_DAYS=30
@@ -46,6 +46,12 @@ export HISTFILESIZE=10000
 export HISTSIZE=500
 
 fpath=(~/.zsh/completion $fpath)
+
+# My Path through the technological woods
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/sbin:$PATH
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export PATH=$GOROOT/bin:$GOPATH/bin/:$PATH
 
 #Use emacs as defualt editor
 export ALTERNATE_EDITOR=""
