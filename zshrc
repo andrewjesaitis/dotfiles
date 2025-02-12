@@ -1,18 +1,3 @@
-# Make Tramp Work
-if [[ "$TERM" == "dumb" ]]
-then
-  unsetopt zle
-  unsetopt prompt_cr
-  unsetopt prompt_subst
-  if whence -w precmd >/dev/null; then
-      unfunction precmd
-  fi
-  if whence -w preexec >/dev/null; then
-      unfunction preexec
-  fi
-  PS1='$ '
-fi
-
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
@@ -33,7 +18,7 @@ DISABLE_AUTO_UPDATE= "false"
 export UPDATE_ZSH_DAYS=30
 
 # Oh my zsh plugins
-plugins=(colored-man-pages sudo colorize history emacs python)
+plugins=(colored-man-pages sudo colorize history python dotenv)
 
 # Oh my zsh setup magic
 source $ZSH/oh-my-zsh.sh
@@ -48,22 +33,23 @@ export HISTSIZE=500
 fpath=(~/.zsh/completion $fpath)
 
 # My Path through the technological woods
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/sbin:$PATH
+export PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/sbin:$PATH
+export PATH=$PATH:"/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 export GOROOT=/usr/local/go
-export GOPATH=$HOME/go
+export GOPATH=$HOME/projects/go
 export PATH=$GOROOT/bin:$GOPATH/bin/:$PATH
 
 #Use emacs as defualt editor
 export ALTERNATE_EDITOR=""
-export EDITOR="emacsclient -t"                  # $EDITOR opens in terminal
-export VISUAL="emacsclient -c -a emacs"         # $VISUAL opens in GUI mode
+export EDITOR="code"
+export VISUAL="code"
 
-#Virtualenv and python stuff
+# Python
 export PYTHONDONTWRITEBYTECODE=1
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Projects
-export VIRTUALENVWRAPPER_PYTHON=python
-source /usr/local/bin/virtualenvwrapper.sh
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
 
 #Sane db aliases
 alias rs='python manage.py runserver'
@@ -173,12 +159,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Additional configs
-WORKRC=~/Projects/zymergenrc
 SECRETSRC=~/Dropbox/Secrets/secrets
-
-if [ -f $WORKRC ]; then
-   source $WORKRC
-fi
 
 if [ -f $SECRETSRC ]; then
    source $SECRETSRC
@@ -188,3 +169,31 @@ fi
 pyclean () {
     find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
 }
+
+# New function to switch Google Cloud projects (default project and quota)
+gcp-switch-project () {
+    if [ -z "$1" ]; then
+        echo "Usage: gcp-switch-project <project-id>"
+        return 1
+    fi
+    local PROJECT="$1"
+    echo "Switching to project: $PROJECT"
+    gcloud auth application-default set-quota-project "$PROJECT"
+    gcloud config set project "$PROJECT"
+}
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/andrewjesaitis/projects/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/andrewjesaitis/projects/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/andrewjesaitis/projects/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/andrewjesaitis/projects/google-cloud-sdk/completion.zsh.inc'; fi
+
+# GCP Aliases
+alias gcp-login='gcloud auth application-default login'
+alias gcp-logout='gcloud auth revoke'
+alias gcp-list-projects='gcloud projects list'
+alias gcp-current-project='gcloud config list --format="value(core.project)"'
+
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/andrewjesaitis/.cache/lm-studio/bin"
