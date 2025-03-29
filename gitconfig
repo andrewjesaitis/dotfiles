@@ -1,8 +1,13 @@
 [user]
 	email = andrew@andrewjesaitis.com
 	name = Andrew Jesaitis
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDIYrC2U2AFSi9Z2oKzBau/DvgPB0FxA1d1tP5gkM8kB
+
 [push]
 	default = simple
+
+[pull]
+  ff = only
 
 [alias]
   co = checkout
@@ -18,5 +23,18 @@
   wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
   bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
   pushb = "!git push --set-upstream origin \"$(git rev-parse --abbrev-ref HEAD)\""
+
 [core]
-	excludesfile = /home/andrew/.gitignore_global
+	excludesfile = /Users/andrewjesaitis/.gitignore_global
+
+[includeIf "gitdir:~/projects/profluent"]
+    path = ~/projects/profluent/.gitconfig
+
+[gpg]
+	format = ssh
+
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+
+[commit]
+	gpgsign = true

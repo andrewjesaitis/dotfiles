@@ -27,9 +27,6 @@
 *.sqlite
 junit.xml
 
-# Emacs Generated Files #
-#########################
-*~
-.tern-port
-*flymake.py
-
+# System-wide #
+###############
+.DS_Store

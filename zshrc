@@ -2,17 +2,32 @@
 ZSH=$HOME/.oh-my-zsh
 
 # Theme
-export VIRTUAL_ENV_DISABLE_PROMPT=1
 ZSH_THEME="andrewjesaitis"
 
-setopt list_ambiguous
+# Better directory navigation
+setopt LIST_AMBIGUOUS       # List ambiguous completions
+setopt AUTO_PUSHD          # Push the old directory onto the stack on cd
+setopt PUSHD_IGNORE_DUPS   # Don't store duplicates in the stack
+setopt PUSHD_SILENT        # Don't print directory stack after pushd/popd
+
+# Better history
+setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format
+setopt SHARE_HISTORY             # Share history between all sessions
+setopt HIST_EXPIRE_DUPS_FIRST   # Expire duplicate entries first when trimming history
+setopt HIST_IGNORE_DUPS         # Don't record an entry that was just recorded again
+setopt HIST_IGNORE_ALL_DUPS     # Delete old recorded entry if new entry is a duplicate
+setopt HIST_FIND_NO_DUPS        # Do not display a line previously found
+setopt HIST_SAVE_NO_DUPS        # Don't write duplicate entries in the history file
+
+# Better completion
+setopt COMPLETE_IN_WORD    # Complete from both ends of a word
+setopt ALWAYS_TO_END       # Move cursor to the end of a completed word
+
+# Initialize zsh's advanced completion system
 autoload -Uz compinit && compinit -i
 
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
-
 # Comment this out to disable bi-weekly auto-update checks
-DISABLE_AUTO_UPDATE= "false"
+DISABLE_AUTO_UPDATE="false"
 
 # Update Oh my zsh every month
 export UPDATE_ZSH_DAYS=30
@@ -21,50 +36,20 @@ export UPDATE_ZSH_DAYS=30
 plugins=(colored-man-pages sudo colorize history python dotenv)
 
 # Oh my zsh setup magic
-source $ZSH/oh-my-zsh.sh
+source "$ZSH/oh-my-zsh.sh"
 
 # Disable the bell
-if [[ $iatest > 0 ]]; then bind "set bell-style visible"; fi
-
-# Expand the history size
-export HISTFILESIZE=10000
-export HISTSIZE=500
+if [[ $iatest -gt 0 ]]; then bind "set bell-style visible"; fi
 
 fpath=(~/.zsh/completion $fpath)
 
-# My Path through the technological woods
-export PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/sbin:$PATH
-export PATH=$PATH:"/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
-export GOROOT=/usr/local/go
-export GOPATH=$HOME/projects/go
-export PATH=$GOROOT/bin:$GOPATH/bin/:$PATH
-
-#Use emacs as defualt editor
-export ALTERNATE_EDITOR=""
-export EDITOR="code"
-export VISUAL="code"
-
-# Python
-export PYTHONDONTWRITEBYTECODE=1
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-
-
-#Sane db aliases
-alias rs='python manage.py runserver'
-alias start_mysql='mysql.server start'
-alias stop_mysql='mysql.server stop'
-
-alias start_mongo="mongod --dbpath ~/Projects/mongodatabases"
-alias stop_mongo="mongo --eval \"db.getSiblingDB('admin').shutdownServer()\""
-
-alias start_postgres='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
-alias stop_postgres='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log stop'
-
-alias restart_couch='/usr/bin/sudo launchctl stop org.apache.couchdb'
-alias start_couch='/usr/bin/sudo launchctl load -w /Library/LaunchDaemons/org.apache.couchdb.plist'
-alias stop_couch='/usr/bin/sudo launchctl unload /Library/LaunchDaemons/org.apache.couchdb.plist'
+# Lazy load nvm
+export NVM_DIR="$HOME/.nvm"
+nvm() {
+    unset -f nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    nvm "$@"
+}
 
 #Git aliases
 alias got='git '
@@ -79,6 +64,20 @@ alias dcu='docker-compose up'
 alias dcp='docker-compose pull'
 alias dcb='docker-compose build'
 
+# Virtual Env
+alias mkvenv='python3 -m venv .venv && source .venv/bin/activate'
+alias rmvenv='rm -rf .venv && deactivate'
+alias svenv='source .venv/bin/activate'
+
+#Perhaps you should include this apple, hmmmm....
+alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
+alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+
+# GCP Aliases
+alias gcp-login='gcloud auth application-default login'
+alias gcp-logout='gcloud auth revoke'
+alias gcp-list-projects='gcloud projects list'
+alias gcp-current-project='gcloud config list --format="value(core.project)"'
 
 # Show current network connections to the server
 alias ipview="netstat -anpl | grep :80 | awk {'print \$5'} | cut -d\":\" -f1 | sort | uniq -c | sort -n | sed -e 's/^ *//' -e 's/ *\$//'"
@@ -144,33 +143,18 @@ alias .....='cd ../../../..'
 # Alias's to modified commands
 alias cp='cp -i'
 alias mv='mv -i'
-alias rm='rm -iv'
+alias rm='rm -Iv'
 alias mkdir='mkdir -p'
 alias less='less -R'
 alias apt-get='sudo apt-get'
 
-#Perhaps you should include this apple, hmmmm....
-alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
-alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 
-#nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Additional configs
-SECRETSRC=~/Dropbox/Secrets/secrets
-
-if [ -f $SECRETSRC ]; then
-   source $SECRETSRC
-fi
-
-# Custom functions
+# Clean up Python cache
 pyclean () {
     find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
 }
 
-# New function to switch Google Cloud projects (default project and quota)
+# Switch Google Cloud projects (default project and quota)
 gcp-switch-project () {
     if [ -z "$1" ]; then
         echo "Usage: gcp-switch-project <project-id>"
@@ -182,18 +166,17 @@ gcp-switch-project () {
     gcloud config set project "$PROJECT"
 }
 
+# Docker cleanup
+docker-cleanup() {
+    docker system prune -af --volumes
+    echo "Cleaned up all unused containers, networks, images, and volumes"
+}
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/andrewjesaitis/projects/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/andrewjesaitis/projects/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/andrewjesaitis/projects/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/andrewjesaitis/projects/google-cloud-sdk/completion.zsh.inc'; fi
-
-# GCP Aliases
-alias gcp-login='gcloud auth application-default login'
-alias gcp-logout='gcloud auth revoke'
-alias gcp-list-projects='gcloud projects list'
-alias gcp-current-project='gcloud config list --format="value(core.project)"'
-
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/andrewjesaitis/.cache/lm-studio/bin"
