@@ -3,32 +3,36 @@
 	name = Andrew Jesaitis
 	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDIYrC2U2AFSi9Z2oKzBau/DvgPB0FxA1d1tP5gkM8kB
 
-[push]
-	default = simple
-
-[pull]
-  ff = only
-
-[alias]
-  co = checkout
-  ci = commit
-  st = status
-  br = branch
-  hist = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-  type = cat-file -t
-  dump = cat-file -p
-  amend = commit -a --amend
-  up = !git pull --rebase --prune $@ && git submodule update --init --recursive
-  undo = reset HEAD~1 --mixed
-  wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
-  bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
-  pushb = "!git push --set-upstream origin \"$(git rev-parse --abbrev-ref HEAD)\""
-
 [core]
 	excludesfile = /Users/andrewjesaitis/.gitignore_global
+	editor = micro
 
-[includeIf "gitdir:~/projects/profluent"]
-    path = ~/projects/profluent/.gitconfig
+[init]
+	defaultBranch = main
+
+[push]
+	default = simple
+	autoSetupRemote = true
+
+[pull]
+	rebase = true
+
+[alias]
+	co = checkout
+	ci = commit
+	st = status
+	br = branch
+	hist = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	type = cat-file -t
+	dump = cat-file -p
+	amend = commit -a --amend
+	up = !git pull --rebase --prune $@ && git submodule update --init --recursive
+	undo = reset HEAD~1 --mixed
+	wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
+	bclean = "!f() { git branch --merged ${1-main} | grep -v \" ${1-main}$\" | xargs -r git branch -d; }; f"
+
+[includeIf "gitdir:~/projects/profluent/"]
+	path = ~/projects/profluent/.gitconfig
 
 [gpg]
 	format = ssh
@@ -38,3 +42,35 @@
 
 [commit]
 	gpgsign = true
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+[diff]
+	tool = vscode
+
+[difftool "vscode"]
+	cmd = code --wait --diff $LOCAL $REMOTE
+
+[merge]
+	tool = vscode
+
+[mergetool "vscode"]
+	cmd = code --wait $MERGED
+
+# Currently Testing - delta for better diffs
+[core]
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	side-by-side = true
+
+[merge]
+	conflictstyle = diff3

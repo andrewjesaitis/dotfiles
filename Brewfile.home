@@ -1,0 +1,4 @@
+# Home-specific packages
+cask "nordvpn"              # VPN client
+cask "visual-studio-code"   # Code editor
+cask "zoom"                 # Video conferencing
